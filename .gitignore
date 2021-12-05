@@ -1,0 +1,17 @@
+# IDE/ editor configuration files
+.idea
+
+# dependency directories & files
+dist
+build
+node_modules
+*.tgz
+*.zip
+
+# coverage & report files
+**coverage**
+**report**
+
+# debugging & error files
+*.nyc_output
+*.log
