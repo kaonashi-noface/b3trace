@@ -39,48 +39,36 @@ class B3Trace implements IB3Trace {
             throw some Error();
         */
     }
-
     getRootSpan(): B3Trace {
-        return null; // this.rootSpan;
+        throw new Error('Method not implemented.');
     }
 
     getParentSpan(): B3Trace {
-        return this.parentSpan;
+        throw new Error('Method not implemented.');
     }
 
     getTraceId(): string {
-        return '';
+        throw new Error('Method not implemented.');
     }
 
     getParentSpanId(): string {
-        return '';
+        throw new Error('Method not implemented.');
     }
 
     getSpanId(): string {
-        return '';
+        throw new Error('Method not implemented.');
     }
 
     toHeaderString(): string {
-        const fields = [this.traceId, this.spanId, 0];
-        if (this.getParentSpan()) {
-            fields.push(this.getParentSpan().spanId);
-        }
-        return fields.join('-');
+        throw new Error('Method not implemented.');
     }
 
     toJson(): B3TraceJson {
-        const parentSpan = this.getParentSpan();
-        return {
-            parentSpanId: parentSpan ? parentSpan.spanId : null,
-            traceId: this.traceId,
-            spanId: this.spanId,
-            sampled: false, // TODO: implement samlping flag
-            debug: false, // TODO: implement debugging flag
-        };
+        throw new Error('Method not implemented.');
     }
 
     toString(): string {
-        return JSON.stringify(this.toJson());
+        throw new Error('Method not implemented.');
     }
 }
 
