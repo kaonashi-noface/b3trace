@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "ES6",
         "module": "CommonJS",
-        "typeRoots": [],
         "types": [
             "node",
             "jest",
