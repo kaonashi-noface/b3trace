@@ -4,7 +4,7 @@ jobs:
     install:
         docker:
             - image: cimg/node:current
-        working_directory: /artifacts
+        working_directory: /temp
         steps:
             - checkout
             - run:
@@ -15,6 +15,7 @@ jobs:
     test_unit:
         docker:
             - image: cimg/node:current
+        # working_directory: /temp
         steps:
             - checkout
             - run:
