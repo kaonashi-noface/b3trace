@@ -1,8 +1,8 @@
 import { B3TraceOptions, B3TraceJson, IB3Trace } from '@types';
 
-const HEXADECIMALS: string = '0123456789abcdef';
-
 class B3Trace implements IB3Trace {
+    private static readonly HEXADECIMALS: string = '0123456789abcdef';
+
     private readonly is128BitId: boolean;
     private readonly isPropagated: boolean;
 
@@ -12,6 +12,9 @@ class B3Trace implements IB3Trace {
     private spanId: string;
 
     constructor(args: Partial<B3TraceOptions> = { is128BitId: true, isPropagated: true }) {
+        this.is128BitId = args.is128BitId;
+        this.isPropagated = args.isPropagated;
+
         /* PSEUDOCODE:
         IF (traceId == null && spanId == null): // construct trace root
             construct new root trace;
@@ -33,6 +36,7 @@ class B3Trace implements IB3Trace {
             throw some Error();
         */
     }
+
     getRootSpan(): B3Trace {
         throw new Error('Method not implemented.');
     }
@@ -69,7 +73,7 @@ class B3Trace implements IB3Trace {
         let id = '';
         const idLength: number = this.is128BitId ? 32 : 16;
         for (let i = 0; i < idLength; ++i) {
-            id += HEXADECIMALS[Math.floor(Math.random() * 16)];
+            id += B3Trace.HEXADECIMALS[Math.floor(Math.random() * 16)];
         }
         return id;
     }
