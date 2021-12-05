@@ -18,26 +18,26 @@ class B3Trace implements IB3Trace {
     private spanId: string;
 
     constructor(args: Partial<B3TraceOptions> = { is128BitId: true }) {
-        /**
-         * 1) construct brand new trace:
-         *  * traceId == null, spanId == null
-         * 2) construct a subtree trace:
-         *  * traceId != null, spanId != null
-         *  * you can either propagate the trace or construct a new span...
-         * 3) throw an Error:
-         *  * traceId == null && spanId == null || traceId == null && spanId == null
-         */
-        if (args.traceId && args.spanId) {
-            this.traceId = args.traceId;
-            this.spanId = args.spanId;
-        } else if (!args.traceId && !args.spanId) {
-            this.traceId = generateId(args.is128BitId);
-            this.spanId = generateId();
-        } else {
-            throw new Error(
-                'TODO: implement Error handling for when one is provided but not the other.'
-            );
-        }
+        /* PSEUDOCODE:
+        IF (traceId == null && spanId == null): // construct trace root
+            construct new root trace;
+            generate new traceId
+            generate new spanId
+        ELSE IF (traceId != null && spanId != null): // construct trace subtree
+            construct new subtree trace;
+                IF (isPropagated == true):
+                    construct new span
+                    copy incoming traceId to traceId
+                    copy incoming spanId to spanId
+                    copy incoming parentSpanId to parentSpanId
+                ELSE:
+                    construct new span
+                    copy incoming traceId to traceId
+                    copy incoming spanId to parentSpanId
+                    generate new parentSpanId
+        ELSE:
+            throw some Error();
+        */
     }
 
     getRootSpan(): B3Trace {
