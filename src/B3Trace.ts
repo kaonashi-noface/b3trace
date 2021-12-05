@@ -35,6 +35,9 @@ class B3Trace implements IB3Trace {
         ELSE:
             throw some Error();
         */
+        if (!args.traceId && !args.spanId) {
+            this.constructTraceRoot();
+        }
     }
 
     getRootSpan(): B3Trace {
@@ -42,11 +45,11 @@ class B3Trace implements IB3Trace {
     }
 
     getParentSpan(): B3Trace {
-        throw new Error('Method not implemented.');
+        return this.parentSpan;
     }
 
     getTraceId(): string {
-        throw new Error('Method not implemented.');
+        return this.traceId;
     }
 
     getParentSpanId(): string {
@@ -54,7 +57,7 @@ class B3Trace implements IB3Trace {
     }
 
     getSpanId(): string {
-        throw new Error('Method not implemented.');
+        return this.spanId;
     }
 
     toHeaderString(): string {
@@ -69,13 +72,25 @@ class B3Trace implements IB3Trace {
         throw new Error('Method not implemented.');
     }
 
-    private generateId() {
+    /**
+     * Generates a hexadecimal identifier that is of length 32 or 16 depending on the B3Trace root's configuration.
+     *
+     * @param is128BitId flags that determines if the identifer should be length 32 or 16. If `is128BitId` is `true`, the identifer length is 32.
+     * If `is128BitId` is `false`, the identifer length is 16.
+     * @returns a hexadecimal identifier of length 32 or 16.
+     */
+    private generateId(is128BitId: boolean = false) {
         let id = '';
-        const idLength: number = this.is128BitId ? 32 : 16;
+        const idLength: number = is128BitId ? 32 : 16;
         for (let i = 0; i < idLength; ++i) {
             id += B3Trace.HEXADECIMALS[Math.floor(Math.random() * 16)];
         }
         return id;
+    }
+
+    private constructTraceRoot() {
+        this.traceId = this.generateId(this.is128BitId);
+        this.spanId = this.generateId();
     }
 }
 

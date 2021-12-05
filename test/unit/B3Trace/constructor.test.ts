@@ -3,20 +3,18 @@ import { B3Trace } from '@src/B3Trace';
 describe('B3Trace constructor TestSuite', () => {
     it('should successfully construct B3 Trace root with 32 length trace id', () => {
         const trace = new B3Trace();
-        const { parentSpanId, traceId, spanId } = trace.toJson();
 
-        expect(parentSpanId).toBeNull();
-        expect(traceId).toHaveLength(32);
-        expect(spanId).toHaveLength(16);
+        expect(trace.getParentSpan()).toBeFalsy();
+        expect(trace.getTraceId()).toHaveLength(32);
+        expect(trace.getSpanId()).toHaveLength(16);
     });
 
     it('should successfully construct B3 Trace root with 16 length trace id', () => {
         const trace = new B3Trace({ is128BitId: false });
-        const { parentSpanId, traceId, spanId } = trace.toJson();
 
-        expect(parentSpanId).toBeNull();
-        expect(traceId).toHaveLength(16);
-        expect(spanId).toHaveLength(16);
+        expect(trace.getParentSpan()).toBeFalsy();
+        expect(trace.getTraceId()).toHaveLength(16);
+        expect(trace.getSpanId()).toHaveLength(16);
     });
 
     it('should successfully construct B3 Trace subtree with propagated ids', () => {
