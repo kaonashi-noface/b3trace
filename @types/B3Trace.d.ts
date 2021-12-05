@@ -1,6 +1,7 @@
 type B3TraceOptions = {
     is128BitId: boolean;
     isPropagated: boolean;
+    parentSpanId;
     traceId: string;
     spanId: string;
 };

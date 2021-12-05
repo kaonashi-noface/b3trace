@@ -2,22 +2,16 @@ import { B3TraceOptions, B3TraceJson, IB3Trace } from '@types';
 
 const HEXADECIMALS: string = '0123456789abcdef';
 
-function generateId(is128BitId: boolean = false) {
-    let id = '';
-    const idLength: number = is128BitId ? 32 : 16;
-    for (let i = 0; i < idLength; ++i) {
-        id += HEXADECIMALS[Math.floor(Math.random() * 16)];
-    }
-    return id;
-}
-
 class B3Trace implements IB3Trace {
+    private readonly is128BitId: boolean;
+    private readonly isPropagated: boolean;
+
     private parentSpan: B3Trace;
 
     private traceId: string;
     private spanId: string;
 
-    constructor(args: Partial<B3TraceOptions> = { is128BitId: true }) {
+    constructor(args: Partial<B3TraceOptions> = { is128BitId: true, isPropagated: true }) {
         /* PSEUDOCODE:
         IF (traceId == null && spanId == null): // construct trace root
             construct new root trace;
@@ -69,6 +63,15 @@ class B3Trace implements IB3Trace {
 
     toString(): string {
         throw new Error('Method not implemented.');
+    }
+
+    private generateId() {
+        let id = '';
+        const idLength: number = this.is128BitId ? 32 : 16;
+        for (let i = 0; i < idLength; ++i) {
+            id += HEXADECIMALS[Math.floor(Math.random() * 16)];
+        }
+        return id;
     }
 }
 
