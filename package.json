@@ -14,9 +14,10 @@
     "types": "src/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && ./node_modules/.bin/webpack-cli",
-        "test:unit": "./node_modules/.bin/jest --colors --testTimeout 999999 \"test/unit/.*(test.ts)\"",
-        "test": "./node_modules/.bin/jest --colors --testTimeout 999999 \"test/.*(test.ts)\"",
-        "coverage": "./node_modules/.bin/jest --colors --testTimeout 999999 --coverage \"test/.*(test.ts)\"",
+        "test:unit": "./node_modules/.bin/jest --colors \"test/unit/.*(test.ts)\"",
+        "test:coverage": "./node_modules/.bin/jest --colors --coverage \"test/unit/.*(test.ts)\"",
+        "test": "./node_modules/.bin/jest --colors \"test/.*(test.ts)\"",
+        "coverage": " \"test/.*(test.ts)\"",
         "publish:dry-run": "npm publish ./dist --dry-run"
     },
     "devDependencies": {

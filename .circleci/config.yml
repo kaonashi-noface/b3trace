@@ -12,6 +12,8 @@ jobs:
             - run:
                   name: 'Running Unit Tests'
                   command: npm run test:unit
+            - store_test_results:
+                  path: coverage
 
 workflows:
     install_test_workflow:
