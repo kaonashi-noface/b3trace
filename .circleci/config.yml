@@ -1,26 +1,18 @@
 version: 2.1
 
 jobs:
-    install:
+    install_test_job:
         docker:
             - image: cimg/node:current
         steps:
             - checkout
             - run:
-                  name: 'Install Dependencies'
-                  command: 'npm ci'
-
-    test_unit:
-        docker:
-            - image: cimg/node:current
-        steps:
-            - checkout
-            - run:
-                  name: 'Unit Test'
-                  command: 'npm run test:unit'
+                  name: 'Installing & Running Tests'
+                  command: |
+                      npm ci
+                      npm run test:unit
 
 workflows:
-    install:
+    install_test_workflow:
         jobs:
-            - install
-            - test_unit
+            - install_test_job
