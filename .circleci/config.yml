@@ -11,7 +11,7 @@ jobs:
                   command: npm ci
             - run:
                   name: 'Running Unit Tests'
-                  command: npm run test:coverage
+                  command: npm run test:ci-coverage
                   environment:
                       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
             - store_test_results:
