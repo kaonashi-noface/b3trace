@@ -7,8 +7,9 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: 'Say hello'
+                  name: 'Install Dependencies'
                   command: 'npm ci'
+
     test_unit:
         docker:
             - image: cimg/node:current
@@ -17,3 +18,9 @@ jobs:
             - run:
                   name: 'Unit Test'
                   command: 'npm run test:unit'
+
+workflows:
+    install:
+        jobs:
+            - install
+            - test_unit
