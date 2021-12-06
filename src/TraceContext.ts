@@ -3,7 +3,7 @@ import { SampledState, TraceContextOptions, TraceContextJson, ITraceContext } fr
 class TraceContext implements ITraceContext {
     private static readonly HEXADECIMALS: string = '0123456789abcdef';
 
-    static generateId(is128BitId: boolean = false) {
+    static generateId(is128BitId: boolean = false): string {
         let id = '';
         const idLength: number = is128BitId ? 32 : 16;
         for (let i = 0; i < idLength; ++i) {
@@ -62,7 +62,11 @@ class TraceContext implements ITraceContext {
     }
 
     toHeaderString(): string {
-        throw new Error('Method not implemented.');
+        const fields = [this.getTraceId(), this.getSpanId(), this.getSampled()];
+        if (this.parentSpanId) {
+            fields.push(this.parentSpanId);
+        }
+        return fields.join('-');
     }
 
     toJson(): TraceContextJson {

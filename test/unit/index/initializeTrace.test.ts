@@ -1,6 +1,6 @@
 import { initializeTrace } from '@src/index';
 
-describe('initializeTrace TestSuite', () => {
+describe('b3trace module initializeTrace TestSuite', () => {
     it('should initialize Trace root with 32 length trace id', () => {
         const traceCtx = initializeTrace();
 

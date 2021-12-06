@@ -7,6 +7,8 @@ describe('TraceContext createChildContext TestSuite', () => {
 
         expect(traceCtx.getParentSpanId()).toBeFalsy();
         expect(childCtx.getTraceId()).toEqual(traceCtx.getTraceId());
+
+        expect(childCtx.getParentContext().getSpanId()).toEqual(traceCtx.getSpanId());
         expect(childCtx.getParentSpanId()).toEqual(traceCtx.getSpanId());
     });
 });

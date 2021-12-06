@@ -1,4 +1,4 @@
-type SampledState = 'true' | true | 1 | 'false' | false | 0 | 'd';
+type SampledState = 'true' | true | '1' | 1 | 'false' | false | '0' | 0 | 'd';
 
 type TraceContextOptions = {
     traceId: string;
@@ -16,6 +16,7 @@ type TraceContextJson = {
 
 interface ITraceContext {
     createChildContext(): TraceContext;
+    getParentContext(): TraceContext;
 
     getTraceId(): string;
     getParentSpanId(): string;
@@ -35,7 +36,7 @@ declare class TraceContext implements ITraceContext {
      * If `is128BitId` is `false`, the identifer length is 16.
      * @returns a hexadecimal identifier of length 32 or 16.
      */
-    static generateId(is128BitId: boolean);
+    static generateId(is128BitId: boolean): string;
 
     /**
      *
@@ -44,6 +45,7 @@ declare class TraceContext implements ITraceContext {
     constructor(args: TraceContextOptions);
 
     createChildContext(): TraceContext;
+    getParentContext(): TraceContext;
 
     /**
      * The trace identifier of the current Trace Context - which the same across the entire Trace.

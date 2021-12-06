@@ -1,6 +1,6 @@
 import { initializeTraceContext } from '@src/index';
 
-describe('initializeTraceContext TestSuite', () => {
+describe('b3trace module initializeTraceContext TestSuite', () => {
     it('should continue Trace with propagated ids', () => {
         const incomingTraceId = 'someexpectedtraceid';
         const incomingSpanId = 'someexpectedspanid';
