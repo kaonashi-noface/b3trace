@@ -12,6 +12,9 @@ jobs:
             - run:
                   name: 'Running Unit Tests'
                   command: npm run test:unit
+            - run:
+                  name: 'List Files in CWD'
+                  command: ls -la
             - store_test_results:
                   path: coverage
 
