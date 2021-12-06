@@ -6,14 +6,13 @@ class B3Trace implements IB3Trace {
     private readonly is128BitId: boolean;
     private readonly isPropagated: boolean;
 
-    private parentSpan: B3Trace;
-
+    private parentSpanId: string;
     private traceId: string;
     private spanId: string;
 
-    constructor(args: Partial<B3TraceOptions> = { is128BitId: true, isPropagated: true }) {
-        this.is128BitId = args.is128BitId;
-        this.isPropagated = args.isPropagated;
+    constructor({ is128BitId = true, isPropagated = true, ...args }: Partial<B3TraceOptions> = {}) {
+        this.is128BitId = is128BitId;
+        this.isPropagated = isPropagated;
 
         /**
          * TODO:
@@ -23,40 +22,13 @@ class B3Trace implements IB3Trace {
          *      else:
          *          validate traceid length 32
          */
-
-        /* PSEUDOCODE:
-        IF (traceId == null && spanId == null): // construct trace root
-            construct new root trace;
-            generate new traceId
-            generate new spanId
-        ELSE IF (traceId != null && spanId != null): // construct trace subtree
-            construct new subtree trace;
-                IF (isPropagated == true):
-                    construct new span
-                    copy incoming traceId to traceId
-                    copy incoming spanId to spanId
-                    copy incoming parentSpanId to parentSpanId
-                ELSE:
-                    construct new span
-                    copy incoming traceId to traceId
-                    copy incoming spanId to parentSpanId
-                    generate new parentSpanId
-        ELSE:
-            throw some Error();
-        */
         if (!args.traceId && !args.spanId) {
-            this.constructTraceRoot();
+            this.initializeRootTraceContext();
         } else if (args.traceId && args.spanId) {
-            //
+            this.initializeSubTreeTraceContext(args.traceId, args.spanId, args.parentSpanId);
+        } else {
+            throw new Error('TODO: implement error scenario');
         }
-    }
-
-    getRootSpan(): B3Trace {
-        throw new Error('Method not implemented.');
-    }
-
-    getParentSpan(): B3Trace {
-        return this.parentSpan;
     }
 
     getTraceId(): string {
@@ -64,7 +36,7 @@ class B3Trace implements IB3Trace {
     }
 
     getParentSpanId(): string {
-        throw new Error('Method not implemented.');
+        return this.parentSpanId;
     }
 
     getSpanId(): string {
@@ -99,9 +71,30 @@ class B3Trace implements IB3Trace {
         return id;
     }
 
-    private constructTraceRoot() {
+    /**
+     *
+     */
+    private initializeRootTraceContext() {
         this.traceId = this.generateId(this.is128BitId);
         this.spanId = this.generateId();
+    }
+
+    /**
+     * Visit this link for more information about the propagation prperty: https://github.com/openzipkin/b3-propagation#why-is-parentspanid-propagated
+     *
+     * @param traceId
+     * @param spanId
+     * @param parentSpanId
+     */
+    private initializeSubTreeTraceContext(traceId: string, spanId: string, parentSpanId?: string) {
+        this.traceId = traceId;
+        if (this.isPropagated) {
+            this.parentSpanId = parentSpanId;
+            this.spanId = spanId;
+        } else {
+            this.parentSpanId = spanId;
+            this.spanId = this.generateId();
+        }
     }
 }
 

@@ -15,9 +15,6 @@ type B3TraceJson = {
 };
 
 interface IB3Trace {
-    getRootSpan(): B3Trace;
-    getParentSpan(): B3Trace;
-
     getTraceId(): string;
     getParentSpanId(): string;
     getSpanId(): string;
@@ -28,9 +25,6 @@ interface IB3Trace {
 }
 
 declare class B3Trace implements IB3Trace {
-    getRootSpan(): B3Trace;
-    getParentSpan(): B3Trace;
-
     getTraceId(): string;
     getParentSpanId(): string;
     getSpanId(): string;

@@ -4,7 +4,7 @@ describe('B3Trace constructor TestSuite', () => {
     it('should successfully construct B3 Trace root with 32 length trace id', () => {
         const trace = new B3Trace();
 
-        expect(trace.getParentSpan()).toBeFalsy();
+        expect(trace.getParentSpanId()).toBeFalsy();
         expect(trace.getTraceId()).toHaveLength(32);
         expect(trace.getSpanId()).toHaveLength(16);
     });
@@ -12,7 +12,7 @@ describe('B3Trace constructor TestSuite', () => {
     it('should successfully construct B3 Trace root with 16 length trace id', () => {
         const trace = new B3Trace({ is128BitId: false });
 
-        expect(trace.getParentSpan()).toBeFalsy();
+        expect(trace.getParentSpanId()).toBeFalsy();
         expect(trace.getTraceId()).toHaveLength(16);
         expect(trace.getSpanId()).toHaveLength(16);
     });
@@ -23,14 +23,14 @@ describe('B3Trace constructor TestSuite', () => {
         const incomingParentSpanId = 'someexpectedparentspanid';
 
         const trace = new B3Trace({
-            parentSpanId: incomingParentSpanId,
             traceId: incomingTraceId,
             spanId: incomingSpanId,
+            parentSpanId: incomingParentSpanId,
         });
 
+        expect(trace.getTraceId()).toEqual(incomingTraceId);
+        expect(trace.getSpanId()).toEqual(incomingSpanId);
         expect(trace.getParentSpanId()).toEqual(incomingParentSpanId);
-        expect(trace.getTraceId()).toEqual(incomingSpanId);
-        expect(trace.getSpanId()).toEqual(incomingTraceId);
     });
 
     it('should successfully construct B3 Trace subtree without propagated ids', () => {
@@ -40,14 +40,13 @@ describe('B3Trace constructor TestSuite', () => {
 
         const trace = new B3Trace({
             isPropagated: false,
-            parentSpanId: incomingParentSpanId,
             traceId: incomingTraceId,
-            spanId: incomingTraceId,
+            spanId: incomingSpanId,
+            parentSpanId: incomingParentSpanId,
         });
 
-        expect(trace.getParentSpanId()).not.toEqual(incomingParentSpanId);
+        expect(trace.getTraceId()).toEqual(incomingTraceId);
         expect(trace.getParentSpanId()).toEqual(incomingSpanId);
-        expect(trace.getTraceId()).toEqual(incomingSpanId);
         expect(trace.getSpanId()).toHaveLength(16);
         expect(trace.getSpanId()).not.toEqual(incomingSpanId);
     });
