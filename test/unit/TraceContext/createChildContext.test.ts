@@ -1,8 +1,8 @@
-import { TraceContext } from '@src/TraceContext';
+import { initializeTrace } from '@src/index';
 
-describe('B3Trace constructor TestSuite', () => {
+describe('TraceContext createChildContext TestSuite', () => {
     it('should successfully construct child trace context from B3 Trace', () => {
-        const traceCtx = new TraceContext();
+        const traceCtx = initializeTrace();
         const childCtx = traceCtx.createChildContext();
 
         expect(traceCtx.getParentSpanId()).toBeFalsy();

@@ -1,17 +1,17 @@
+type SampledState = 'true' | true | 1 | 'false' | false | 0 | 'd';
+
 type TraceContextOptions = {
-    is128BitId: boolean;
-    isPropagated: boolean;
-    parentSpanId;
     traceId: string;
     spanId: string;
+    parentSpanId?: string;
+    sampled?: SampledState;
 };
 
 type TraceContextJson = {
     parentSpanId: string;
     traceId: string;
     spanId: string;
-    sampled: boolean;
-    debug: boolean;
+    sampled: SampledState;
 };
 
 interface ITraceContext {
@@ -20,6 +20,7 @@ interface ITraceContext {
     getTraceId(): string;
     getParentSpanId(): string;
     getSpanId(): string;
+    getSampled(): SampledState;
 
     toHeaderString(): string;
     toJson(): TraceContextJson;
@@ -28,10 +29,19 @@ interface ITraceContext {
 
 declare class TraceContext implements ITraceContext {
     /**
+     * Generates a hexadecimal identifier that is of length 32 or 16 depending on the B3Trace root's configuration.
+     *
+     * @param is128BitId flags that determines if the identifer should be length 32 or 16. If `is128BitId` is `true`, the identifer length is 32.
+     * If `is128BitId` is `false`, the identifer length is 16.
+     * @returns a hexadecimal identifier of length 32 or 16.
+     */
+    static generateId(is128BitId: boolean);
+
+    /**
      *
      * @param {Partial<TraceContextOptions>} args
      */
-    constructor({ is128BitId, isPropagated, ...args }?: Partial<TraceContextOptions>);
+    constructor(args: TraceContextOptions);
 
     createChildContext(): TraceContext;
 
@@ -58,6 +68,7 @@ declare class TraceContext implements ITraceContext {
      * @returns the parent span's identifier of the current Trace Context
      */
     getSpanId(): string;
+    getSampled(): SampledState;
 
     toHeaderString(): string;
     toJson(): TraceContextJson;
@@ -67,4 +78,4 @@ declare class TraceContext implements ITraceContext {
     toString(): string;
 }
 
-export { TraceContextOptions, TraceContextJson, ITraceContext, TraceContext };
+export { SampledState, TraceContextOptions, TraceContextJson, ITraceContext, TraceContext };
