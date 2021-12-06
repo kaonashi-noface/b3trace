@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-    install_test_job:
+    main_build_job:
         docker:
             - image: cimg/node:current
         steps:
@@ -11,14 +11,13 @@ jobs:
                   command: npm ci
             - run:
                   name: 'Running Unit Tests'
-                  command: npm run test:unit
-            - run:
-                  name: 'List Files in CWD'
-                  command: ls -la
+                  command: npm run test:coverage
+                  environment:
+                      JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
             - store_test_results:
-                  path: coverage
+                  path: /reports/junit
 
 workflows:
-    install_test_workflow:
+    main_build_workflow:
         jobs:
-            - install_test_job
+            - main_build_job
