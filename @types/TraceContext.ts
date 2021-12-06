@@ -1,4 +1,4 @@
-type B3TraceOptions = {
+type TraceContextOptions = {
     is128BitId: boolean;
     isPropagated: boolean;
     parentSpanId;
@@ -6,7 +6,7 @@ type B3TraceOptions = {
     spanId: string;
 };
 
-type B3TraceJson = {
+type TraceContextJson = {
     parentSpanId: string;
     traceId: string;
     spanId: string;
@@ -14,22 +14,26 @@ type B3TraceJson = {
     debug: boolean;
 };
 
-interface IB3Trace {
+interface ITraceContext {
+    createChildContext(): TraceContext;
+
     getTraceId(): string;
     getParentSpanId(): string;
     getSpanId(): string;
 
     toHeaderString(): string;
-    toJson(): B3TraceJson;
+    toJson(): TraceContextJson;
     toString(): string;
 }
 
-declare class B3Trace implements IB3Trace {
+declare class TraceContext implements ITraceContext {
     /**
      *
-     * @param {Partial<B3TraceOptions>} args
+     * @param {Partial<TraceContextOptions>} args
      */
-    constructor({ is128BitId, isPropagated, ...args }?: Partial<B3TraceOptions>);
+    constructor({ is128BitId, isPropagated, ...args }?: Partial<TraceContextOptions>);
+
+    createChildContext(): TraceContext;
 
     /**
      * The trace identifier of the current Trace Context - which the same across the entire Trace.
@@ -56,11 +60,11 @@ declare class B3Trace implements IB3Trace {
     getSpanId(): string;
 
     toHeaderString(): string;
-    toJson(): B3TraceJson;
+    toJson(): TraceContextJson;
     /**
      * @returns the unformatted JSON result from the `.toJson()` member function as a string
      */
     toString(): string;
 }
 
-export { B3TraceOptions, B3TraceJson, IB3Trace, B3Trace };
+export { TraceContextOptions, TraceContextJson, ITraceContext, TraceContext };

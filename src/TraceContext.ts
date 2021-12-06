@@ -1,16 +1,22 @@
-import { B3TraceOptions, B3TraceJson, IB3Trace } from '@types';
+import { TraceContextOptions, TraceContextJson, ITraceContext } from '@types';
 
-class B3Trace implements IB3Trace {
+class TraceContext implements ITraceContext {
     private static readonly HEXADECIMALS: string = '0123456789abcdef';
 
     private readonly is128BitId: boolean;
     private readonly isPropagated: boolean;
 
+    private parentContext: TraceContext;
+
     private parentSpanId: string;
     private traceId: string;
     private spanId: string;
 
-    constructor({ is128BitId = true, isPropagated = true, ...args }: Partial<B3TraceOptions> = {}) {
+    constructor({
+        is128BitId = true,
+        isPropagated = true,
+        ...args
+    }: Partial<TraceContextOptions> = {}) {
         this.is128BitId = is128BitId;
         this.isPropagated = isPropagated;
 
@@ -31,23 +37,42 @@ class B3Trace implements IB3Trace {
         }
     }
 
-    getTraceId(): string {
-        return this.traceId;
+    getParentContext(): TraceContext {
+        return this.parentContext;
     }
 
-    getParentSpanId(): string {
-        return this.parentSpanId;
+    private setParentContext(parentContext: TraceContext) {
+        this.parentContext = parentContext;
+        return this;
+    }
+
+    createChildContext(): TraceContext {
+        const childContext = new TraceContext({
+            is128BitId: this.is128BitId,
+            isPropagated: this.isPropagated,
+        }).setParentContext(this);
+        childContext.traceId = this.traceId;
+        childContext.parentSpanId = this.spanId;
+        return childContext;
+    }
+
+    getTraceId(): string {
+        return this.traceId;
     }
 
     getSpanId(): string {
         return this.spanId;
     }
 
+    getParentSpanId(): string {
+        return this.parentSpanId;
+    }
+
     toHeaderString(): string {
         throw new Error('Method not implemented.');
     }
 
-    toJson(): B3TraceJson {
+    toJson(): TraceContextJson {
         return {
             traceId: this.getTraceId(),
             spanId: this.getSpanId(),
@@ -72,7 +97,7 @@ class B3Trace implements IB3Trace {
         let id = '';
         const idLength: number = is128BitId ? 32 : 16;
         for (let i = 0; i < idLength; ++i) {
-            id += B3Trace.HEXADECIMALS[Math.floor(Math.random() * 16)];
+            id += TraceContext.HEXADECIMALS[Math.floor(Math.random() * 16)];
         }
         return id;
     }
@@ -86,7 +111,7 @@ class B3Trace implements IB3Trace {
     }
 
     /**
-     * Visit this link for more information about the propagation prperty: https://github.com/openzipkin/b3-propagation#why-is-parentspanid-propagated
+     * Visit this link for more information about the propagation property: https://github.com/openzipkin/b3-propagation#why-is-parentspanid-propagated
      *
      * @param traceId
      * @param spanId
@@ -104,4 +129,4 @@ class B3Trace implements IB3Trace {
     }
 }
 
-export { B3TraceOptions, B3TraceJson, IB3Trace, B3Trace };
+export { TraceContextOptions, TraceContextJson, ITraceContext, TraceContext };

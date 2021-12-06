@@ -1,1 +1,1 @@
-export * from './B3Trace';
+export * from './TraceContext';

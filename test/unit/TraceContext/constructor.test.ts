@@ -1,20 +1,20 @@
-import { B3Trace } from '@src/B3Trace';
+import { TraceContext } from '@src/TraceContext';
 
 describe('B3Trace constructor TestSuite', () => {
     it('should successfully construct B3 Trace root with 32 length trace id', () => {
-        const trace = new B3Trace();
+        const traceCtx = new TraceContext();
 
-        expect(trace.getParentSpanId()).toBeFalsy();
-        expect(trace.getTraceId()).toHaveLength(32);
-        expect(trace.getSpanId()).toHaveLength(16);
+        expect(traceCtx.getParentSpanId()).toBeFalsy();
+        expect(traceCtx.getTraceId()).toHaveLength(32);
+        expect(traceCtx.getSpanId()).toHaveLength(16);
     });
 
     it('should successfully construct B3 Trace root with 16 length trace id', () => {
-        const trace = new B3Trace({ is128BitId: false });
+        const traceCtx = new TraceContext({ is128BitId: false });
 
-        expect(trace.getParentSpanId()).toBeFalsy();
-        expect(trace.getTraceId()).toHaveLength(16);
-        expect(trace.getSpanId()).toHaveLength(16);
+        expect(traceCtx.getParentSpanId()).toBeFalsy();
+        expect(traceCtx.getTraceId()).toHaveLength(16);
+        expect(traceCtx.getSpanId()).toHaveLength(16);
     });
 
     it('should successfully construct B3 Trace subtree with propagated ids', () => {
@@ -22,15 +22,15 @@ describe('B3Trace constructor TestSuite', () => {
         const incomingSpanId = 'someexpectedspanid';
         const incomingParentSpanId = 'someexpectedparentspanid';
 
-        const trace = new B3Trace({
+        const traceCtx = new TraceContext({
             traceId: incomingTraceId,
             spanId: incomingSpanId,
             parentSpanId: incomingParentSpanId,
         });
 
-        expect(trace.getTraceId()).toEqual(incomingTraceId);
-        expect(trace.getSpanId()).toEqual(incomingSpanId);
-        expect(trace.getParentSpanId()).toEqual(incomingParentSpanId);
+        expect(traceCtx.getTraceId()).toEqual(incomingTraceId);
+        expect(traceCtx.getSpanId()).toEqual(incomingSpanId);
+        expect(traceCtx.getParentSpanId()).toEqual(incomingParentSpanId);
     });
 
     it('should successfully construct B3 Trace subtree without propagated ids', () => {
@@ -38,16 +38,16 @@ describe('B3Trace constructor TestSuite', () => {
         const incomingSpanId = 'someexpectedspanid';
         const incomingParentSpanId = 'theparentspanshouldnotmatterid';
 
-        const trace = new B3Trace({
+        const traceCtx = new TraceContext({
             isPropagated: false,
             traceId: incomingTraceId,
             spanId: incomingSpanId,
             parentSpanId: incomingParentSpanId,
         });
 
-        expect(trace.getTraceId()).toEqual(incomingTraceId);
-        expect(trace.getParentSpanId()).toEqual(incomingSpanId);
-        expect(trace.getSpanId()).toHaveLength(16);
-        expect(trace.getSpanId()).not.toEqual(incomingSpanId);
+        expect(traceCtx.getTraceId()).toEqual(incomingTraceId);
+        expect(traceCtx.getParentSpanId()).toEqual(incomingSpanId);
+        expect(traceCtx.getSpanId()).toHaveLength(16);
+        expect(traceCtx.getSpanId()).not.toEqual(incomingSpanId);
     });
 });

@@ -7,4 +7,4 @@
  * 3) get an existing span by name or id
  * 4) construct b3 header value (traceId-)
  */
-export * from './B3Trace';
+export * from '@src/TraceContext';
