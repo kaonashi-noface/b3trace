@@ -15,6 +15,15 @@ class B3Trace implements IB3Trace {
         this.is128BitId = args.is128BitId;
         this.isPropagated = args.isPropagated;
 
+        /**
+         * TODO:
+         * 1) validate identifiers are hexadecimal
+         * 2)   if is128BitId == true:
+         *          validate traceid length 16
+         *      else:
+         *          validate traceid length 32
+         */
+
         /* PSEUDOCODE:
         IF (traceId == null && spanId == null): // construct trace root
             construct new root trace;
@@ -37,6 +46,8 @@ class B3Trace implements IB3Trace {
         */
         if (!args.traceId && !args.spanId) {
             this.constructTraceRoot();
+        } else if (args.traceId && args.spanId) {
+            //
         }
     }
 
