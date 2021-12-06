@@ -15,7 +15,7 @@ jobs:
                   environment:
                       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
             - store_test_results:
-                  path: /reports/junit
+                  path: ./reports/junit/
 
 workflows:
     main_build_workflow:
