@@ -48,11 +48,17 @@ class B3Trace implements IB3Trace {
     }
 
     toJson(): B3TraceJson {
-        throw new Error('Method not implemented.');
+        return {
+            traceId: this.getTraceId(),
+            spanId: this.getSpanId(),
+            parentSpanId: this.getParentSpanId(),
+            sampled: false, // TODO: implement sampled propagation
+            debug: false, // TODO: implement debug propagation
+        };
     }
 
     toString(): string {
-        throw new Error('Method not implemented.');
+        return JSON.stringify(this.toJson());
     }
 
     /**
