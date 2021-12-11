@@ -1,3 +1,13 @@
+# 1.0.1 / 2021-12-10
+
+### Features
+
+-   `N/A`
+
+### Fixes
+
+-   Republish b3trace package
+
 # 1.0.0 / 2021-12-10
 
 ### Features

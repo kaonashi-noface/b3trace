@@ -1,6 +1,6 @@
 {
     "name": "b3trace",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Object that represents a B3 Trace based on the OpenZipkin specifications: https://github.com/openzipkin/b3-propagation",
     "author": {
         "name": "no_face"
