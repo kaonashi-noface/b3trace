@@ -8,13 +8,12 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     mode: 'production',
     target: 'node',
-    entry: sync('./src/**/*.{ts,tsx}').reduce((acc, file) => {
-        acc[file.replace(/(\.ts)$/, '')] = file;
-        return acc;
-    }, {}),
+    entry: {
+        main: './src/index.ts',
+    },
     output: {
         path: resolve(__dirname, 'dist'),
-        filename: '[name].js',
+        filename: 'src/index.js',
         libraryTarget: 'commonjs',
     },
     plugins: [
