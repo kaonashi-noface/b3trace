@@ -1,12 +1,14 @@
-<p align="center">
-    <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all"><img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="GitHub CircleCI Build"></a>
-    <a href="https://github.com/mochajs/mocha#sponsors"><img src="https://img.shields.io/gitlab/coverage/no_face/b3trace/main" alt="GitHub Jest Coverage"></a>
-</p>
-<p align="center">
-    <a href="https://github.com/mochajs/mocha/actions?query=workflow%3ATests+branch%3Amaster"><img src="https://img.shields.io/npm/v/b3trace" alt="npm version"></a>
-    <a href="https://coveralls.io/github/mochajs/mocha"><img src="https://img.shields.io/npm/l/b3trace" alt="npm license"></a>
-    <a href="https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmochajs%2Fmocha?ref=badge_shield"><img src="https://img.shields.io/npm/dm/b3trace" alt="npm downloads"></a>
-</p>
+<center><h1>B3Trace</h1></center>
+<center>
+    <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all">
+        <img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="GitHub CircleCI Build" />
+    </a>
+</center>
+<center>
+    <img alt="npm" src="https://img.shields.io/npm/v/b3trace" />
+    <img alt="NPM" src="https://img.shields.io/npm/l/b3trace" />
+    <img alt="npm" src="https://img.shields.io/npm/dm/b3trace" />
+</center>
 
 # Description
 
