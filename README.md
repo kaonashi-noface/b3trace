@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://gitter.im/mochajs/mocha?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://img.shields.io/gitlab/pipeline-status/no_face/b3trace?branch=main" alt="GitHub Builds"></a>
-    <a href="https://github.com/mochajs/mocha#sponsors"><img src="https://img.shields.io/gitlab/coverage/no_face/b3trace/main" alt="GitHub Coverage"></a>
+    <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all"><img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="GitHub CircleCI Build"></a>
+    <a href="https://github.com/mochajs/mocha#sponsors"><img src="https://img.shields.io/gitlab/coverage/no_face/b3trace/main" alt="GitHub Jest Coverage"></a>
 </p>
 <p align="center">
     <a href="https://github.com/mochajs/mocha/actions?query=workflow%3ATests+branch%3Amaster"><img src="https://img.shields.io/npm/v/b3trace" alt="npm version"></a>
