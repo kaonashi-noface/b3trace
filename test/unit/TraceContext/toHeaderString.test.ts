@@ -1,7 +1,7 @@
 import { TraceContext } from '@src/TraceContext';
 
 describe('TraceContext toHeaderString TestSuite', () => {
-    it('should successfully stringify trace context', () => {
+    it('should successfully stringify trace context to b3 header string', () => {
         const expectedTraceId = 'expectedtraceid';
         const expectedParentSpanId = 'expectedparentspanid';
         const expectedSpanId = 'expectedspanid';
