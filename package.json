@@ -41,6 +41,7 @@
         "b3trace",
         "b3",
         "trace",
+        "context",
         "propagation",
         "object"
     ],
