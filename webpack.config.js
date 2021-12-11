@@ -1,3 +1,4 @@
+const { sync } = require('glob');
 const { resolve } = require('path');
 const nodeExternals = require('webpack-node-externals');
 
@@ -7,12 +8,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     mode: 'production',
     target: 'node',
-    entry: {
-        main: './src/index.ts',
-    },
+    entry: sync('./src/**/*.{ts,tsx}').reduce((acc, file) => {
+        acc[file.replace(/(\.ts)$/, '')] = file;
+        return acc;
+    }, {}),
     output: {
         path: resolve(__dirname, 'dist'),
-        filename: 'src/index.js',
+        filename: '[name].js',
         libraryTarget: 'commonjs',
     },
     plugins: [
@@ -42,4 +44,7 @@ module.exports = {
         ],
     },
     externals: [nodeExternals()],
+    optimization: {
+        minimize: false,
+    },
 };
