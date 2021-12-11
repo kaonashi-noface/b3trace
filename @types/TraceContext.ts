@@ -7,7 +7,7 @@
  */
 type SampledState = 'true' | true | '1' | 1 | 'false' | false | '0' | 0 | 'd';
 /**
- * TODO:
+ * Properties of a TraceContext to pass as an argument.
  */
 type TraceContextOptions = {
     traceId: string;
@@ -40,8 +40,26 @@ interface ITraceContext {
 }
 
 /**
- * TODO:
- * The Object representation of a TraceContext. A Trace Context is constructed
+ * The Object representation of a TraceContext.
+ *
+ * A Trace Context is composed of four properties:
+ * * trace identifier
+ * * parent span identifier
+ * * span identifier
+ * * sampling state
+ *
+ * A TraceContext represents the .
+ * The trace identifier represents the lifecycle of a user request. The trace identifier is passed downstream to
+ * all systems when a client initiates a request regardless of the propagate flag. This allows tracer systems to
+ * instrument the entire lifecycle of the request. The span identifier represents the context of a "slice" of a
+ * trace. Spans correlate to nodes within the lifecycle of a request. The parent span refers to the in Object
+ * representation of a TraceContext's parent. A TraceContext with a null parent span is not guaranteed to be the
+ * head TraceContext of a Trace. This is because information is lost as data flows through a distributed system.
+ * Finally, the sample state notifies the tracing systems whether or not the current trace should be logged and
+ * instrumented.
+ *
+ * Visit the B3 propagation repository for more information about the B3 propagation specificiations:
+ * https://github.com/openzipkin/b3-propagation
  */
 declare class TraceContext implements ITraceContext {
     /**
@@ -53,8 +71,8 @@ declare class TraceContext implements ITraceContext {
      */
     static generateId(is128BitId: boolean): string;
     /**
-     * TODO:
-     * @param {TraceContextOptions} args
+     * Constructs a new TraceContext.
+     * @param {TraceContextOptions} args properties from the previous TraceContext to construct the new TraceContext from.
      */
     constructor(args: TraceContextOptions);
     /**
