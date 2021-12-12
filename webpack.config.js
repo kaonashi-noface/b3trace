@@ -1,4 +1,3 @@
-const { sync } = require('glob');
 const { resolve } = require('path');
 const nodeExternals = require('webpack-node-externals');
 

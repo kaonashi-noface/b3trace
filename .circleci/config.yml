@@ -14,10 +14,13 @@ jobs:
                   command: npm run test:ci-coverage
                   environment:
                       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+            - run:
+                  name: 'Uploading Code Coverage'
+                  command: npm run coveralls
             - store_test_results:
                   path: ./reports/junit/
-            - store_artifacts:
-                  path: coverage
+            # - store_artifacts:
+            #       path: coverage
 
 workflows:
     main_build_workflow:

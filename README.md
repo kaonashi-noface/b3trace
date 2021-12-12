@@ -1,14 +1,14 @@
-<center><h1>B3Trace</h1></center>
-<center>
-    <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all">
-        <img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="GitHub CircleCI Build" />
-    </a>
-</center>
-<center>
-    <img alt="npm" src="https://img.shields.io/npm/v/b3trace" />
-    <img alt="NPM" src="https://img.shields.io/npm/l/b3trace" />
-    <img alt="npm" src="https://img.shields.io/npm/dm/b3trace" />
-</center>
+# B3Trace
+
+<a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all">
+    <img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="CircleCI Build" />
+</a>
+<a href='https://coveralls.io/github/kaonashi-noface/b3trace?branch=b3trace@1.0.2-code-coverage'>
+    <img src='https://coveralls.io/repos/github/kaonashi-noface/b3trace/badge.svg?branch=b3trace@1.0.2-code-coverage' alt='Code Coverage' />
+</a>
+<img alt="npm" src="https://img.shields.io/npm/v/b3trace" />
+<img alt="NPM" src="https://img.shields.io/npm/l/b3trace" />
+<img alt="npm" src="https://img.shields.io/npm/dm/b3trace" />
 
 # Description
 
@@ -35,13 +35,33 @@ const traceCtx = initializeTrace();
 
 ## TraceContext from an Existing Trace
 
-To construct a TraceContext of an existing Trace, from an incoming TraceContext:
+To construct a TraceContext from an existing Trace given an incoming TraceContext:
 
 ```ts
+// ...other imports...
 const {initializeTraceContext} from 'b3trace';
 
-const b3 = '80f198ee56343ba864fe8b2a57d3eff7-e457b5a2e4d86bd1-1-05e3ac9a4f6e3b90;
-const traceCtx = initializeTraceContext(b3);
+async function handler(({headers}), context) {
+    const traceId = headers['X-B3-TraceId'];
+    const parentSpanId = headers['X-B3-ParentSpanId'];
+    const spanId = headers['X-B3-SpanId'];
+    const sampled = headers['X-B3-Sampled'];
+
+    const traceCtx = initializeTraceContext({ traceId, spanId, parentSpanId, sampled });
+
+    logger.info('Some logger message...', traceCtx.toJson());
+    const user = await dynamoDb.getUser(/*...parameters...*/);
+
+    //...some business logic...
+
+    return {
+        // ... return Https Response to API Gateway
+    }
+}
+
+export {
+    handler
+}
 ```
 
 ### propagation

@@ -1,8 +1,11 @@
+# 1.0.2 / 2021-12-10 # TODO: update date later...
+
+### Other
+
+-   Provided correct documentation for the `initializeTraceContext` method.
+-   Added Coveralls Code Coverage to repository.
+
 # 1.0.1 / 2021-12-10
-
-### Features
-
--   `N/A`
 
 ### Fixes
 
@@ -22,7 +25,3 @@
     -   `TraceContextJson`
     -   `ITraceContext`
     -   `TraceContext`
-
-### Fixes
-
--   `N/A`
