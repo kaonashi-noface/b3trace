@@ -1,4 +1,10 @@
-import { TraceContextOptions, TraceContext } from './TraceContext';
+import {
+    SampledState,
+    TraceContextOptions,
+    TraceContextJson,
+    ITraceContext,
+    TraceContext,
+} from './TraceContext';
 
 declare namespace b3trace {
     /**
@@ -20,7 +26,8 @@ declare namespace b3trace {
         args: TraceContextOptions,
         isPropagated: boolean
     ): TraceContext;
+
+    export { SampledState, TraceContextOptions, TraceContextJson, ITraceContext, TraceContext };
 }
 
-export * from './TraceContext';
-export default b3trace;
+export = b3trace;
