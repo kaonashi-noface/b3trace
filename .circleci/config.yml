@@ -14,10 +14,14 @@ jobs:
                   command: npm run test:ci-coverage
                   environment:
                       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+            - run:
+                  name: 'Running Unit Tests'
+                  command: cat coverage/lcov.info
+            - run:
+                  name: 'Uploading Code Coverage'
+                  command: npm run coveralls
             - store_test_results:
                   path: ./reports/junit/
-            - store_artifacts:
-                  path: coverage
 
 workflows:
     main_build_workflow:

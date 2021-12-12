@@ -1,8 +1,16 @@
+# 1.0.2 / 2021-12-11
+
+### Other
+
+-   Provided correct example for the `initializeTraceContext` method in README.md.
+-   Added Coveralls Code Coverage to repository.
+-   Reformatted Headers & Badges in README.md.
+
+### Fixes
+
+-   Fix faulty exports in index.d.ts file.
+
 # 1.0.1 / 2021-12-10
-
-### Features
-
--   `N/A`
 
 ### Fixes
 
@@ -22,7 +30,3 @@
     -   `TraceContextJson`
     -   `ITraceContext`
     -   `TraceContext`
-
-### Fixes
-
--   `N/A`
