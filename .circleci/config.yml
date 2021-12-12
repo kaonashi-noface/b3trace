@@ -15,6 +15,9 @@ jobs:
                   environment:
                       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
             - run:
+                  name: 'Running Unit Tests'
+                  command: cat coverage/lcov.info
+            - run:
                   name: 'Uploading Code Coverage'
                   command: npm run coveralls
                   #   environment:
