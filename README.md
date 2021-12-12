@@ -117,11 +117,41 @@ This means that the current TraceContext will:
 
 This method will retrieve a reference to a TraceContext with a given span identifier.
 The intent will be to restructure the TraceContext as a recursive tree of TraceContext(s)
-with referneces to parent and child TraceContext(s).
+with references to the parent and child TraceContext(s).
+
+```ts
+const {initializeTrace} from 'b3trace';
+
+// root TraceContext:
+const traceCtx = initializeTrace();
+// descendents of root TraceContext:
+const childCtx1 = traceCtx.createChildContext();
+const childCtx2 = traceCtx.createChildContext();
+const childCtx3 = traceCtx.createChildContext();
+// descendents of childCtx1 TraceContext:
+const childCtx1_1 = childCtx1.createChildContext();
+const childCtx1_2 = childCtx1.createChildContext();
+
+// Should return direct descendent (childCtx3):
+traceCtx.getTraceContext(childCtx3.getSpanId());
+// Should return deep descendent (childCtx1_2):
+traceCtx.getTraceContext(childCtx1_2.getSpanId());
+
+// Should NOT return because (root TraceContext) is NOT a descendent of childCtx1_2:
+childCtx1_2.getTraceContext(childCtx1_2.getSpanId());
+```
 
 ## TraceContext - constructor(traceContext: TraceContext): TraceContext
 
 This constructor will deep copy an existing TraceContext Object.
+
+```ts
+const {TraceContext} from 'b3trace';
+
+// assume this TraceContext was constructed from incoming headers:
+const traceCtx = initializeTraceContext(/*...assume headers were propagated...*/);
+const traceCtxDeepCopy = new TraceContext(traceCtx);
+```
 
 ## index - initializeTraceContext(b3Header: string, isPropagated = true): TraceContext
 
