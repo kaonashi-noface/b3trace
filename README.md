@@ -89,7 +89,7 @@ When `propagation=true`:
 When the `propagation` flag is `true`, `initializeTraceContext` copies the incoming TraceContext. This means that the incoming
 TraceContext and the current TraceContext will share the same node on a TraceContext tree.
 
-When `propagation=true`:
+When `propagation=false`:
 
 ```
                            ┌───────────────────┐
