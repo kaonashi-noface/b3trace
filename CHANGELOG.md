@@ -1,9 +1,10 @@
-# 1.0.2 / 2021-12-10 # TODO: update date later...
+# 1.0.2 / 2021-12-11
 
 ### Other
 
--   Provided correct documentation for the `initializeTraceContext` method.
+-   Provided correct example for the `initializeTraceContext` method in README.md.
 -   Added Coveralls Code Coverage to repository.
+-   Reformatted Headers & Badges in README.md.
 
 # 1.0.1 / 2021-12-10
 

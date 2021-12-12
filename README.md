@@ -3,8 +3,8 @@
 <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all">
     <img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="CircleCI Build" />
 </a>
-<a href='https://coveralls.io/github/kaonashi-noface/b3trace?branch=b3trace@1.0.2-code-coverage'>
-    <img src='https://coveralls.io/repos/github/kaonashi-noface/b3trace/badge.svg?branch=b3trace@1.0.2-code-coverage' alt='Code Coverage' />
+<a href='https://coveralls.io/github/kaonashi-noface/b3trace?branch=main'>
+    <img src='https://coveralls.io/repos/github/kaonashi-noface/b3trace/badge.svg?branch=main' alt='Code Coverage' />
 </a>
 <img alt="npm" src="https://img.shields.io/npm/v/b3trace" />
 <img alt="NPM" src="https://img.shields.io/npm/l/b3trace" />
@@ -13,7 +13,7 @@
 # Description
 
 This module provides an Object representation of a B3 TraceContext based on the [OpenZipkin specifications](https://github.com/openzipkin/b3-propagation).
-B3Trace lets you construct new Traces or a TraceContext from a parent TraceContext. It also provides simple functions
+B3Trace lets you construct new Traces or a TraceContext from a parent TraceContext.
 
 # Installation
 
@@ -66,9 +66,6 @@ export {
 
 ### propagation
 
-When the `propagation` flag is `true`, `initializeTraceContext` copies the incoming TraceContext. This means that the incoming
-TraceContext and the current TraceContext will share the same node on a TraceContext tree.
-
 When `propagation=true`:
 
 ```
@@ -89,6 +86,9 @@ When `propagation=true`:
 └───────────────────────┘                                       └───────────────────────┘
 ```
 
+When the `propagation` flag is `true`, `initializeTraceContext` copies the incoming TraceContext. This means that the incoming
+TraceContext and the current TraceContext will share the same node on a TraceContext tree.
+
 When `propagation=true`:
 
 ```
@@ -108,7 +108,7 @@ When the `propagation` flag is `false`, `initializeTraceContext` will construct 
 This means that the current TraceContext will:
 
 -   share the trace identifier with the incoming TraceContext
--   have a parent span identifier with incoming TraceContext's span identifier
+-   have a parent span identifier that matches the incoming TraceContext's span identifier
 -   have a new, 16 hexadecimal length span identifier
 
 # Upcoming Features
@@ -133,7 +133,7 @@ For example:
 ```ts
 const {initializeTraceContext} from 'b3trace';
 
-const b3 = '80f198ee56343ba864fe8b2a57d3eff7-e457b5a2e4d86bd1-1-05e3ac9a4f6e3b90;
+const b3 = '80f198ee56343ba864fe8b2a57d3eff7-e457b5a2e4d86bd1-1-05e3ac9a4f6e3b90';
 const traceCtx = initializeTraceContext(b3);
 ```
 
