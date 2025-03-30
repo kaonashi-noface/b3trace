@@ -1,10 +1,13 @@
 # v2.0.0
 
-TODO: update this later Publish Date - 2025-29-03
+TODO: 2025-30-03
 
-## Features
+## Fixes
 
-TODO - update changelog later
+- refactored b3 module away from classes and towards composition
+- removed webpack devtool bloat
+- provided better documentation
+- shorter and more intuitive function signatures
 
 # v1.0.2
 
