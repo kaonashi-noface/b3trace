@@ -1,32 +1,46 @@
-# 1.0.2 / 2021-12-11
+# v2.0.0
 
-### Other
+TODO: update this later Publish Date - 2025-29-03
 
--   Provided correct example for the `initializeTraceContext` method in README.md.
--   Added Coveralls Code Coverage to repository.
--   Reformatted Headers & Badges in README.md.
+## Features
 
-### Fixes
+TODO - update changelog later
 
--   Fix faulty exports in index.d.ts file.
+# v1.0.2
 
-# 1.0.1 / 2021-12-10
+Publish Date - 2021-12-11
 
-### Fixes
+## Fixes
 
--   Republish b3trace package
+- Fix faulty exports in index.d.ts file.
 
-# 1.0.0 / 2021-12-10
+## Other
 
-### Features
+- Provided correct example for the `initializeTraceContext` method in README.md.
+- Added Coveralls Code Coverage to repository.
+- Reformatted Headers & Badges in README.md.
 
--   First major release of `b3trace@1.0.0`.
--   Export `TypeScript` declaration files.
--   Exported the following files:
-    -   `initializeTrace`
-    -   `initializeTraceContext`
-    -   `SampledState`
-    -   `TraceContextOptions`
-    -   `TraceContextJson`
-    -   `ITraceContext`
-    -   `TraceContext`
+# v1.0.1
+
+Publish Date - 2021-12-10
+
+## Features
+
+- First major release of `b3trace@1.0.0`.
+- Export `TypeScript` declaration files.
+- Exported the following files:
+  - `initializeTrace`
+  - `initializeTraceContext`
+  - `SampledState`
+  - `TraceContextOptions`
+  - `TraceContextJson`
+  - `ITraceContext`
+  - `TraceContext`
+
+## Fixes
+
+- Republish b3trace package
+
+# v1.0.0
+
+Publish Date - 2021-12-10

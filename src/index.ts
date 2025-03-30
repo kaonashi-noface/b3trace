@@ -1,38 +1,49 @@
+import { toEnum } from "@src/SampledState";
+import { EB3Headers, TraceContext, generateId, child } from "@src/TraceContext";
+
 /**
- * You should be able to do the following with this module.
- *
- * Use Cases:
- * 1) construct the root span (aka begin the trace tree)
- * 2) construct a new child span
- * 3) get an existing span by name or id
- * 4) construct b3 header value (traceId-)
+ * Constructs a new TraceContext without a parent.
+ * This new TraceContext is the root of a new Trace.
+ * 
+ * @param is128Bit
+ * If `true`, the trace identifier will be a 32 length hexadecimal string.
+ * If `false`, the trace identifier will be a 16 length hexadecimal string.
+ * @returns a TraceContext as the root of a new Trace
  */
-import { TraceContextOptions } from '@types';
-import { TraceContext } from '@src/TraceContext';
-
-function initializeTrace(is128BitId = true) {
-    const traceId = TraceContext.generateId(is128BitId);
-    const spanId = TraceContext.generateId();
-    return new TraceContext({ traceId, spanId });
+export function create(is128Bit = true) : TraceContext {
+    const traceId = generateId(is128Bit);
+    const spanId = generateId();
+    return { traceId, spanId };
 }
 
-function initializeTraceContext(args: TraceContextOptions, isPropagated = true) {
-    if (isPropagated) {
-        return new TraceContext({
-            traceId: args.traceId,
-            spanId: args.spanId,
-            parentSpanId: args.parentSpanId,
-            sampled: args.sampled,
-        });
-    } else {
-        return new TraceContext({
-            traceId: args.traceId,
-            spanId: TraceContext.generateId(),
-            parentSpanId: args.spanId,
-            sampled: args.sampled,
-        });
+/**
+ * This method generates a new TraceContext from incoming trace headers by propagation or composition.
+ * 
+ * Propagation refers to the act of passing one property directly to its corresponding property 
+ * (e.g. parentSpanId --> parentSpanId, spandId --> spandId, etc.).
+ * 
+ * Composition refers to the act of constructing a new TraceContext as a child of the incoming trace headers.
+ * 
+ * @param headers 
+ * The HTTP request headers to build the B3 TraceContext from.
+ * @param isPropagated
+ * If `true`, the incoming trace headers are propagated and mapped directly to the new TraceContext.
+ * If `false`, the new TraceContext is composed as a child of the incoming trace headers.
+ * 
+ * This means the new TraceContext will:
+ * - adopt the incoming X-B3-SpanId as its parentSpanId
+ * - generate a new 16 length hexadecimal string as its spanId
+ * @returns a TraceContext with context of incoming trace headers
+ */
+export function from(headers: Headers, isPropagated = true): TraceContext {
+    const parent: TraceContext = {
+        traceId: headers.get(EB3Headers.X_B3_TRACEID),
+        parentSpanId: headers.get(EB3Headers.X_B3_PARENTSPANID),
+        spanId: headers.get(EB3Headers.X_B3_SPANID),
+        sampled: toEnum(headers.get(EB3Headers.X_B3_SAMPLED)),
+    };
+    if (!isPropagated) {
+        return child(parent);
     }
+    return { ...parent };
 }
-
-export * from '@src/TraceContext';
-export { initializeTrace, initializeTraceContext };

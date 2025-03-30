@@ -1,19 +1,26 @@
-import { TraceContextOptions, TraceContext } from '@src/TraceContext';
+import { from } from "@src/index";
+import { TraceContextJson, EB3Headers, toString } from "@src/TraceContext";
 
-describe('TraceContext toString TestSuite', () => {
-    it('should successfully stringify trace context', () => {
-        const expectedJson: TraceContextOptions = {
-            traceId: 'expectedtraceid',
-            parentSpanId: 'expectedparentspanid',
-            spanId: 'expectedspanid',
-            sampled: 1,
+describe("TestSuite - TraceContext.toString module", () => {
+    it("should successfully stringify trace context", () => {
+        const expectedJson: TraceContextJson = {
+            traceId: "someexpectedtraceid",
+            parentSpanId: "someexpectedparentspanid",
+            spanId: "someexpectedspanid",
+            sampled: "1",
         };
+        const headers = new Headers({
+            [EB3Headers.X_B3_TRACEID]: expectedJson.traceId,
+            [EB3Headers.X_B3_PARENTSPANID]: expectedJson.parentSpanId,
+            [EB3Headers.X_B3_SPANID]: expectedJson.spanId,
+            [EB3Headers.X_B3_SAMPLED]: expectedJson.sampled,
+        });
+        const traceCtx = from(headers);
+        const actualJson = toString(traceCtx);
 
-        const traceCtx = new TraceContext(expectedJson);
-
-        expect(traceCtx.toString()).toMatch(expectedJson.traceId);
-        expect(traceCtx.toString()).toMatch(expectedJson.parentSpanId);
-        expect(traceCtx.toString()).toMatch(expectedJson.spanId);
-        expect(traceCtx.toString()).toMatch(Number(expectedJson.sampled).toString());
+        expect(actualJson).toMatch(expectedJson.traceId);
+        expect(actualJson).toMatch(expectedJson.parentSpanId);
+        expect(actualJson).toMatch(expectedJson.spanId);
+        expect(actualJson).toMatch(expectedJson.sampled);
     });
 });

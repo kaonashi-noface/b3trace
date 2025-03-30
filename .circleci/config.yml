@@ -7,18 +7,18 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: 'Installing Dependencies'
+                  name: "Installing Dependencies"
                   command: npm ci
             - run:
-                  name: 'Running Unit Tests'
+                  name: "Running Unit Tests"
                   command: npm run test:ci-coverage
                   environment:
                       JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
             - run:
-                  name: 'Running Unit Tests'
+                  name: "Running Unit Tests"
                   command: cat coverage/lcov.info
             - run:
-                  name: 'Uploading Code Coverage'
+                  name: "Uploading Code Coverage"
                   command: npm run coveralls
             - store_test_results:
                   path: ./reports/junit/
