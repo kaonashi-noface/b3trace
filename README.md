@@ -190,6 +190,11 @@ TraceContext will:
 
 This package will soon be published to [JSR](https://jsr.io/) with Deno support.
 
+TypeScript cannot transpile to javascript when `allowImportingTsExtensions` is
+enabled. This makes serving node and Deno modules from the same repository
+difficult given that Deno requires `*.ts` file extension imports, but `tsc`
+cannot generate files without `allowImportingTsExtensions`.
+
 # License
 
 Copyright 2021. Licensed MIT.
