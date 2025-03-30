@@ -5,39 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Unit Tests",
-            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "name": "Unit Test",
+            "type": "node",
             "request": "launch",
-            "args": [
-                "--colors",
-                "--testTimeout",
-                "999999",
-                "--coverage",
-                "test\/unit\/.*(.test.ts)"
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "test"
             ],
-            "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "node",
-            "outputCapture": "std"
-        },
-        {
-            "name": "Functional Tests",
-            "program": "${workspaceFolder}/node_modules/.bin/jest",
-            "request": "launch",
-            "args": [
-                "--colors",
-                "--testTimeout",
-                "999999",
-                "--coverage",
-                "test\/functional\/.*(.test.ts)"
-            ],
-            "internalConsoleOptions": "openOnSessionStart",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node",
             "outputCapture": "std"
         }
     ]
