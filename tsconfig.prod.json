@@ -1,24 +1,22 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ES2024",
         "module": "CommonJS",
-        "types": ["node"],
+        "baseUrl": "./",
+        "outDir": "dist/src",
+        "paths": {
+            "@src/*": ["src/*"]
+        },
+        "declarationDir": "dist/@types",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "allowJs": false,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
-        "alwaysStrict": true,
-        "baseUrl": "./",
-        "outDir": "./dist",
-        "removeComments": false,
-        "allowJs": false,
-        "paths": {
-            "@src/*": ["src/*"]
-        }
-    },
-    "watchOptions": {
-        "watchFile": "useFsEvents",
-        "watchDirectory": "useFsEvents",
-        "fallbackPolling": "dynamicPriority"
+        "removeComments": false
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist"]

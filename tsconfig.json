@@ -1,40 +1,23 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ES2024",
         "module": "CommonJS",
-        "types": [
-            "node",
-            "jest"
-        ],
+        "baseUrl": "./",
+        "paths": {
+            "@src/*": ["src/*"]
+        },
+        "alwaysStrict": true,
+        "allowJs": false,
+        "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "esModuleInterop": true,
-        "alwaysStrict": true,
-        "baseUrl": "./",
-        "outDir": "./dist",
-        "removeComments": false,
-        "allowJs": false,
-        "paths": {
-            "@types/*": [
-                "@types/*"
-            ],
-            "@src/*": [
-                "src/*"
-            ]
-        }
+        "removeComments": false
     },
     "watchOptions": {
         "watchFile": "useFsEvents",
         "watchDirectory": "useFsEvents",
         "fallbackPolling": "dynamicPriority"
     },
-    "include": [
-        "src",
-        "test",
-        "@types"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+    "include": ["src", "test"],
+    "exclude": ["node_modules", "dist"]
 }
