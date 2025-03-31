@@ -2,22 +2,23 @@
 
 <p align="center">
     <a href="https://www.npmjs.com/package/b3trace">
-        <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="CircleCI Build" />
+        <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="NPM Page" />
     </a>
+    <br>
     <a href="https://www.npmjs.com/package/b3trace?activeTab=versions">
-        <img alt="npm" src="https://img.shields.io/npm/v/b3trace" alt="NPM Versions" />
+        <img src="https://img.shields.io/npm/v/b3trace" alt="NPM Versions" />
     </a>
-</p>
-<p align="center">
+    <br>
     <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all">
         <img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="CircleCI Build" />
     </a>
     <a href="https://coveralls.io/github/kaonashi-noface/b3trace?branch=main">
-        <img src="https://coveralls.io/repos/github/kaonashi-noface/b3trace/badge.svg?branch=main" alt="Code Coverage" />
+        <img
+            src="https://coveralls.io/repos/github/kaonashi-noface/b3trace/badge.svg?branch=main"
+            alt="Code Coverage"
+        />
     </a>
 </p>
-
-# Description
 
 This module provides an Object representation of a B3 TraceContext based on the
 [OpenZipkin specifications](https://github.com/openzipkin/b3-propagation).
@@ -25,8 +26,8 @@ This module provides an Object representation of a B3 TraceContext based on the
 B3Trace allows you to construct TraceContext(s) to:
 
 - start a new trace
-- continue a trace TraceContext
-- parse TraceContext into different types (e.g. string, json, etc.)
+- continue a existing trace
+- parse a TraceContext into different types (e.g. string, json, etc.)
 
 # Installation
 
@@ -133,7 +134,7 @@ const res = await axios.get(
 );
 ```
 
-# About
+# Concepts
 
 ## propagation
 

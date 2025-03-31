@@ -1,6 +1,6 @@
 # v2.0.0
 
-TODO: 2025-30-03
+Publish Date - 2025-30-03
 
 ## Fixes
 
