@@ -1,3 +1,11 @@
+# v2.0.1
+
+Publish Date - 2025-30-03
+
+## Fixes
+
+- Fix missing README.md
+
 # v2.0.0
 
 Publish Date - 2025-30-03
