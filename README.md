@@ -95,8 +95,11 @@ async function handler(({headers}), context) {
     // After scrubbing token...
     const authCtx = child(traceCtx);
     const childLogger = logger.child(authCtx);
-    const jwtToken = headers["Authorization"];
-    await validateToken(jwtToken, childLogger);
+    const accessToken = headers["Authorization"];
+    await validateToken({
+        accessToken: accessToken,
+        logger: childLogger
+    });
 
     //...some business logic...
 }
@@ -122,13 +125,13 @@ import { toHeaderString } from "b3trace/TraceContext";
 // Construct TraceContext...
 const traceCtx = b3.from(new Headers(headers));
 // Compress TraceContext into single value
-const b3 = toHeaderString(traceCtx);
+const b3Header = toHeaderString(traceCtx);
 const res = await axios.get(
     "https://some.domain.com/domain/v1/resource",
     {
         headers: {
             Authorization: "Bearer some-jwt-token",
-            b3,
+            b3: b3Header,
         },
     },
 );
