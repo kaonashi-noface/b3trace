@@ -4,11 +4,14 @@
     <a href="https://www.npmjs.com/package/b3trace">
         <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="NPM Page" />
     </a>
-    <br>
+    <br />
     <a href="https://www.npmjs.com/package/b3trace?activeTab=versions">
         <img src="https://img.shields.io/npm/v/b3trace" alt="NPM Versions" />
     </a>
-    <br>
+    <a href="https://www.npmjs.com/package/b3trace">
+        <img src="https://img.shields.io/npm/dm/b3trace" alt="NPM Monthly Downloads" />
+    </a>
+    <br />
     <a href="https://app.circleci.com/pipelines/github/kaonashi-noface/b3trace?branch=main&filter=all">
         <img src="https://circleci.com/gh/kaonashi-noface/b3trace.svg?style=svg" alt="CircleCI Build" />
     </a>
